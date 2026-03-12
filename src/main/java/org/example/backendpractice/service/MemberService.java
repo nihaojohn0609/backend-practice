@@ -2,6 +2,7 @@ package org.example.backendpractice.service;
 
 import org.example.backendpractice.controller.dto.AuthPasswordChangeRequest;
 import org.example.backendpractice.controller.dto.MemberResponse;
+import org.example.backendpractice.controller.dto.MemberUpdateRequest;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface MemberService {
 
     MemberResponse findById(Long memberId);
 
-    void changePassword(Long id, AuthPasswordChangeRequest request);
+    MemberResponse updateMember(Long memberId, String loginId, MemberUpdateRequest request);
+
+    void deleteMember(Long memberId, String LoginId);
 
 }

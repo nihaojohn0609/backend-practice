@@ -16,37 +16,38 @@ public class AuthServiceImpl implements AuthService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    // private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public void validateLoginId(Long memberId) {
-        Member member = memberRepository.findByMemberId(memberId);
-
-        if(member == null) {
+    public void validateLoginId(String loginId) {
+        if(memberRepository.findByLoginId(loginId).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 ID");
         }
     }
 
     public void SignUp(AuthSignUpRequest request) {
-        if(memberRepository.findByMemberId(request.getMemberId()) != null) {
+        if(memberRepository.findByLoginId(request.getLoginId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 ID");
         }
 
         Member member = Member.builder()
+                .loginId(request.getLoginId())
                 .memberName(request.getMemberName())
-                .password(request.getMemberPassword())
+                .password(passwordEncoder.encode(request.getMemberPassword()))
                 .build();
 
-        Member savedMember = memberRepository.save(member);
+        memberRepository.save(member);
 
     }
 
-//    public AuthLoginResponse login(AuthLoginRequest request) {
-//        Member member = memberRepository.findByMemberId((request.getMemberLoginId());
-//
-//        if(member == null) {
-//            throw new IllegalArgumentException("일치하는 회원 없음");
-//        }
-//        String accessToken = jwtTokenProvider.createToken(member.getMemberId());
-//        return AuthLoginResponse.from(member, accessToken);
-//    }
+   public AuthLoginResponse login(AuthLoginRequest request) {
+       Member member = memberRepository.findByLoginId(request.getLoginId())
+               .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디"));
+
+       if(!passwordEncoder.matches(request.getMemberPassword(), member.getPassword())) {
+           throw new IllegalArgumentException("비밀번호 틀림");
+       }
+
+        String accessToken = jwtTokenProvider.createToken(member.getLoginId());
+        return AuthLoginResponse.from(member, accessToken);
+    }
 }

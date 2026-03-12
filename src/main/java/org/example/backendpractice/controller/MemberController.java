@@ -3,8 +3,10 @@ package org.example.backendpractice.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.backendpractice.controller.dto.AuthPasswordChangeRequest;
 import org.example.backendpractice.controller.dto.MemberResponse;
+import org.example.backendpractice.controller.dto.MemberUpdateRequest;
 import org.example.backendpractice.entity.Member;
 import org.example.backendpractice.service.MemberService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +30,15 @@ public class MemberController {
             return memberService.findAllMembers();
         }
 
-        @GetMapping("/{memberId}/password")
-        public void changePassword(@PathVariable Long memberId, @RequestBody AuthPasswordChangeRequest request) {
-            memberService.changePassword(memberId, request);
+        @PutMapping("/{memberId}")
+        public MemberResponse updateMember(Authentication authentication, @PathVariable Long memberId, @RequestBody MemberUpdateRequest request) {
+            String loginId = authentication.getName();
+            return memberService.updateMember(memberId, loginId, request);
+        }
+
+        @DeleteMapping("/{memberId}")
+        public void deleteMember(Authentication authentication, @PathVariable Long memberId) {
+            String loginId = authentication.getName();
+            memberService.deleteMember(memberId, loginId);
         }
 }

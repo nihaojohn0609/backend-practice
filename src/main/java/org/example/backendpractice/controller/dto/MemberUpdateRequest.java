@@ -3,8 +3,7 @@ package org.example.backendpractice.controller.dto;
 import lombok.Data;
 
 @Data
-public class AuthSignUpRequest {
-    private String loginId;
+public class MemberUpdateRequest {
     private String memberName;
-    private String memberPassword;
+    private String password;
 }

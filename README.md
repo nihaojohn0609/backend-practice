@@ -68,33 +68,3 @@ npm run dev               # http://localhost:3000
 * 게시글 목록, 상세 조회, 작성, 수정, 삭제
 * 마이페이지 (회원 정보 수정, 계정 삭제)
 * Axios 인터셉터로 JWT 자동 첨부 및 인증 만료 시 자동 리다이렉트
-
----
-
-## API Endpoints
-
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| POST | `/auth/signup` | 회원가입 | X |
-| POST | `/auth/login` | 로그인 (JWT 발급) | X |
-| GET | `/members` | 전체 회원 조회 | O |
-| GET | `/members/{id}` | 회원 단건 조회 | O |
-| PUT | `/members/{id}` | 회원 정보 수정 | O |
-| DELETE | `/members/{id}` | 회원 탈퇴 | O |
-| POST | `/posts` | 게시글 생성 | O |
-| GET | `/posts` | 전체 게시글 조회 | O |
-| GET | `/posts/{id}` | 게시글 상세 조회 | O |
-| PUT | `/posts/{id}` | 게시글 수정 | O |
-| DELETE | `/posts/{id}` | 게시글 삭제 | O |
-
----
-
-## Testing
-
-```bash
-cd backend-practice
-./mvnw test                              # 전체 테스트
-./mvnw test -Dtest=AuthServiceImplTest   # 인증 서비스 테스트
-./mvnw test -Dtest=MemberServiceImplTest # 회원 서비스 테스트
-./mvnw test -Dtest=PostServiceImplTest   # 게시글 서비스 테스트
-``` 

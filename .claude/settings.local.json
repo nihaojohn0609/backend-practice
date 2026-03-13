@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git rm:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/frontend && npm install)",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/frontend && npm run build)",
+      "Bash(docker info:*)",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw spring-boot:run)",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/frontend && npm run dev)",
+      "Bash(sleep 30 && curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/auth/login 2>&1 || echo \"Backend not ready\")",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw spring-boot:run 2>&1 | head -100)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/nihao/IdeaProjects/backend-practice/backend-practice/$USERPROFILE/**)",
+      "Read(//c/Users/nihao/.jdks/**)",
+      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw spring-boot:run 2>&1 | tail -50)",
+      "Bash(sleep 45 && curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/auth/login 2>&1)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3MzM2NTE3MSwiZXhwIjoxNzczMzY2OTcxfQ.4E0EMvV4UZW-y70Bsh9f64We7xP4y6P88eP8gA2ssij7olOJLet38sCUQrpmNqm5\"\n\necho \"=== CREATE POST ===\"\ncurl -s -X POST http://localhost:8080/posts \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -H \"Authorization: Bearer $TOKEN\" \\\\\n  -d '{\"title\":\"Hello World\",\"content\":\"This is my first post!\"}'\n\necho -e \"\\\\n\\\\n=== GET ALL POSTS ===\"\ncurl -s http://localhost:8080/posts -H \"Authorization: Bearer $TOKEN\"\n\necho -e \"\\\\n\\\\n=== GET POST 1 ===\"\ncurl -s http://localhost:8080/posts/1 -H \"Authorization: Bearer $TOKEN\"\n\necho -e \"\\\\n\\\\n=== UPDATE POST 1 ===\"\ncurl -s -X PUT http://localhost:8080/posts/1 \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -H \"Authorization: Bearer $TOKEN\" \\\\\n  -d '{\"title\":\"Updated Title\",\"content\":\"Updated content\"}'\n\necho -e \"\\\\n\\\\n=== GET MEMBER 1 ===\"\ncurl -s http://localhost:8080/members/1 -H \"Authorization: Bearer $TOKEN\"\n\necho -e \"\\\\n\\\\n=== GET ALL MEMBERS ===\"\ncurl -s http://localhost:8080/members -H \"Authorization: Bearer $TOKEN\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -X POST http://localhost:8080/actuator/shutdown 2>/dev/null; pkill -f \"spring-boot:run\" 2>/dev/null; pkill -f \"backend-practice\" 2>/dev/null; sleep 2; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"Backend stopped\")",
+      "Bash(pkill -f \"BackendPracticeApplication\" 2>/dev/null; pkill -9 -f \"spring-boot\" 2>/dev/null; sleep 3; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"stopped\")",
+      "Bash(netstat -ano 2>/dev/null | grep \":8080\" | head -5 || ss -tlnp 2>/dev/null | grep 8080)",
+      "Bash(kill -9 11452 2>/dev/null; taskkill //PID 11452 //F 2>/dev/null; sleep 2; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"stopped\")",
+      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw test -Dtest=\"MemberServiceImplTest,PostServiceImplTest\" 2>&1 | tail -40)"
+    ]
+  }
+}

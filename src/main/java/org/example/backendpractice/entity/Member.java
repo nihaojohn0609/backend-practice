@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = "posts")
+@ToString(exclude = {"posts", "comments"})
 
 public class Member {
 
@@ -44,11 +44,17 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
     @PreRemove // DB에서 Member가 삭제되기 직전(@PreRemove)에 실행되는 메서드
     private void preRemove() {
         // 내가 쓴 모든 게시글을 찾아가서, 작성자(user)를 null로 만들어 연결을 끊어버립니다.
         for (Post post : posts) {
             post.setMember(null);
+        }
+        for (Comment comment : comments) {
+            comment.setMember(null);
         }
     }
 }

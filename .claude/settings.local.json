@@ -25,7 +25,15 @@
       "Bash(pkill -f \"BackendPracticeApplication\" 2>/dev/null; pkill -9 -f \"spring-boot\" 2>/dev/null; sleep 3; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"stopped\")",
       "Bash(netstat -ano 2>/dev/null | grep \":8080\" | head -5 || ss -tlnp 2>/dev/null | grep 8080)",
       "Bash(kill -9 11452 2>/dev/null; taskkill //PID 11452 //F 2>/dev/null; sleep 2; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"stopped\")",
-      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw test -Dtest=\"MemberServiceImplTest,PostServiceImplTest\" 2>&1 | tail -40)"
+      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw test -Dtest=\"MemberServiceImplTest,PostServiceImplTest\" 2>&1 | tail -40)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/auth/login 2>&1 || echo \"not running\")",
+      "Bash(netstat -ano 2>/dev/null | grep \":8080.*LISTENING\" | head -1)",
+      "Bash(taskkill //PID 27308 //F 2>/dev/null; sleep 2; curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/ 2>&1 || echo \"stopped\")",
+      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw test -Dtest=\"PostServiceImplTest\" 2>&1 | tail -15)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/auth/login 2>&1)",
+      "Bash(export JAVA_HOME=\"C:/Users/nihao/.jdks/ms-17.0.18\" && cd C:/Users/nihao/IdeaProjects/backend-practice/backend-practice && ./mvnw test -Dtest=\"CommentServiceImplTest\" 2>&1 | tail -15)",
+      "Bash(cd C:/Users/nihao/IdeaProjects/backend-practice/frontend && npm run build 2>&1 | tail -10)",
+      "Bash(taskkill //PID 2096 //F 2>/dev/null; sleep 2; echo \"stopped\")"
     ]
   }
 }

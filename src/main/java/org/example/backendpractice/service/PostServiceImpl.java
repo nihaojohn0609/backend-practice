@@ -2,12 +2,17 @@ package org.example.backendpractice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.backendpractice.controller.dto.PostCreateRequest;
+import org.example.backendpractice.controller.dto.PostPageResponse;
 import org.example.backendpractice.controller.dto.PostResponse;
 import org.example.backendpractice.controller.dto.PostUpdateRequest;
 import org.example.backendpractice.dao.MemberRepository;
 import org.example.backendpractice.dao.PostRepository;
 import org.example.backendpractice.entity.Member;
 import org.example.backendpractice.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,13 +44,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostResponse> findAllPosts() {
-        List<Post> posts = postRepository.findAll();
-        List<PostResponse> postResponses = new ArrayList<>();
-        for (Post post : posts) {
-            postResponses.add(PostResponse.from(post));
-        }
-        return postResponses;
+    public PostPageResponse findAllPosts(int page, int size, String sortBy) {
+        Sort sorting = sortBy.equals("latest")
+                ? Sort.by("postId").descending()
+                : Sort.by("postId").ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sorting);
+        Page<Post> postPage = postRepository.findAll(pageable);
+
+        return PostPageResponse.from(postPage);
     }
 
     @Override

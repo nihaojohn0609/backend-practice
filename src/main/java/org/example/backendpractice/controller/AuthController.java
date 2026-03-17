@@ -1,13 +1,8 @@
 package org.example.backendpractice.controller;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.example.backendpractice.controller.dto.AuthLoginRequest;
-import org.example.backendpractice.controller.dto.AuthLoginResponse;
-import org.example.backendpractice.controller.dto.AuthSignUpRequest;
+import org.example.backendpractice.controller.dto.*;
 import org.example.backendpractice.service.AuthService;
-import org.example.backendpractice.service.AuthServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,5 +25,10 @@ public class AuthController {
     @PostMapping("/login")
     public AuthLoginResponse login(@RequestBody AuthLoginRequest request) {
         return authService.login(request);
+    }
+
+    @PostMapping("/reissue")
+    public TokenReissueResponse reissue(@RequestBody TokenReissueRequest request) {
+        return authService.reissue(request);
     }
 }

@@ -1,7 +1,6 @@
 package org.example.backendpractice.jwt;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +30,17 @@ public class JwtTokenProvider {
                 .subject(loginId) // 토큰의 주인 = user의 ID
                 .issuedAt(now) // 발행 시간 = 현재
                 .expiration(new Date(now.getTime() + tokenValidTime))
+                .signWith(key) // 암호 키로 도장 찍어 위조 방지
+                .compact(); // 정보들 압축해서 하나의 토큰 생성
+    }
+
+    public String createRefreshToken(String loginId) {
+        Date now = new Date();
+        long refreshTokenValidTime = 7 * 24 * 60 * 60 * 1000L; // 1주
+        return Jwts.builder()
+                .subject(loginId) // 토큰의 주인 = user의 ID
+                .issuedAt(now) // 발행 시간 = 현재
+                .expiration(new Date(now.getTime() + refreshTokenValidTime))
                 .signWith(key) // 암호 키로 도장 찍어 위조 방지
                 .compact(); // 정보들 압축해서 하나의 토큰 생성
     }

@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 활성화
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화(공격, 방어 기능 끔)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Session 사용 X
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login", "/auth/signup").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login", "/auth/signup", "/auth/reissue").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                         .anyRequest().authenticated()) // 나머지 요청들은 인증 거쳐야함
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // 기본으로 쓰는 아이디/비밀번호 검사기 작동하기 전에, JwtAuthenticationFilter 먼저 실행

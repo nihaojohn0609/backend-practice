@@ -1,6 +1,7 @@
 package org.example.backendpractice.service;
 
 import org.example.backendpractice.controller.dto.PostCreateRequest;
+import org.example.backendpractice.controller.dto.PostPageResponse;
 import org.example.backendpractice.controller.dto.PostResponse;
 import org.example.backendpractice.controller.dto.PostUpdateRequest;
 import org.example.backendpractice.dao.MemberRepository;
@@ -13,6 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -105,13 +109,17 @@ class PostServiceImplTest {
                 .build();
         post2.setPostId(2L);
 
-        when(postRepository.findAll()).thenReturn(List.of(post1, post2));
+        Page<Post> mockPage = new PageImpl<>(List.of(post1, post2));
+        when(postRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
 
-        List<PostResponse> result = postService.findAllPosts();
+        PostPageResponse result = postService.findAllPosts(0, 10, "latest");
 
-        assertEquals(2, result.size());
-        assertEquals("테스트 제목", result.get(0).getTitle());
-        assertEquals("두번째 글", result.get(1).getTitle());
+        assertEquals(2, result.getPosts().size());
+        assertEquals("테스트 제목", result.getPosts().get(0).getTitle());
+        assertEquals("두번째 글", result.getPosts().get(1).getTitle());
+        assertEquals(0, result.getCurrentPage());
+        assertEquals(10, result.getTotalPages());
+        assertFalse(result.isHasNext());
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.example.backendpractice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.backendpractice.controller.dto.PostCreateRequest;
+import org.example.backendpractice.controller.dto.PostPageResponse;
 import org.example.backendpractice.controller.dto.PostResponse;
 import org.example.backendpractice.controller.dto.PostUpdateRequest;
 import org.example.backendpractice.dao.PostRepository;
@@ -29,8 +30,9 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostResponse> getPosts() {
-        return postService.findAllPosts();
+    public PostPageResponse getPosts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+                                     @RequestParam(defaultValue = "latest") String sortBy) {
+        return postService.findAllPosts(page, size, sortBy);
     }
 
     @GetMapping("/{postId}")

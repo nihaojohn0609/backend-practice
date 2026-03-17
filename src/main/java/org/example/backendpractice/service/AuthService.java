@@ -1,8 +1,6 @@
 package org.example.backendpractice.service;
 
-import org.example.backendpractice.controller.dto.AuthLoginRequest;
-import org.example.backendpractice.controller.dto.AuthLoginResponse;
-import org.example.backendpractice.controller.dto.AuthSignUpRequest;
+import org.example.backendpractice.controller.dto.*;
 
 public interface AuthService {
 
@@ -11,4 +9,6 @@ public interface AuthService {
     void SignUp(AuthSignUpRequest request);
 
     AuthLoginResponse login(AuthLoginRequest request);
+
+    TokenReissueResponse reissue(TokenReissueRequest request);
 }
